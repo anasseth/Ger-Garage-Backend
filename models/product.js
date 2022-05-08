@@ -1,10 +1,24 @@
+/*
+Refer General Guide.txt for undetsandong base architecture
+*/
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
-  name: String,
-  desc: String,
-  cal: String,
-  price: String,
+  company_name: String,
+  model: String,
+  category: String,
+  original_price: String,
+  discounted_price: String,
+  feature: [],
+  imageURL: String,
+  reviews: [
+    {
+      username: String,
+      message: String,
+      rating: String,
+      email: String,
+    },
+  ],
 });
 
 productSchema.set("toJSON", {

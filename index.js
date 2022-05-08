@@ -8,15 +8,17 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-var notesRouter = require("./routes/notes");
 var productRouter = require("./routes/products");
 var passwordRouter = require("./routes/password");
 var orderRouter = require("./routes/order");
+var userRouter = require("./routes/login");
+var loginRouter = require("./auth/auth");
 
-app.use("/api/notes", notesRouter);
 app.use("/api/products", productRouter);
 app.use("/api/password", passwordRouter);
 app.use("/api/order", orderRouter);
+app.use("/api/user", userRouter);
+app.use("/api/login", loginRouter);
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message);

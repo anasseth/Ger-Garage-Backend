@@ -1,0 +1,21 @@
+The API structure is very simple
+1) You must first define Model
+2) then you must defined Route
+3) In index.js file , you finally define a name for your API and bind with sepcific routing.
+
+In Model Folder, we have models for all API.
+In Route Folder, we have routes for all API.
+
+Properties in Model:
+The properties in each model are selected based on application needs
+it's a continous process and new properties are added up based on requirements.
+
+Defining Model:
+This process remain same for all models. Therefore the comments 
+added here are generalized for all Models.
+Step 1) Import mongoose
+step 2) Create an object with required properties
+step 3) use transform function to convert it to toJSON
+
+Defining Router:
+Router specific comments are added in each files

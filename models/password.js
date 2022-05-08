@@ -1,3 +1,6 @@
+/*
+Refer General Guide.txt for undetsandong base architecture
+*/
 const mongoose = require("mongoose");
 
 const adminCredentialsSchema = new mongoose.Schema({
