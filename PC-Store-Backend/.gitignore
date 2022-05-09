@@ -1,7 +1,7 @@
 node_modules
 
 # Enviornment Files
-# .env
+.env
 
 
 # profiling files
