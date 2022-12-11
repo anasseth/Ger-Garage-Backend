@@ -11,7 +11,7 @@ const { check, validationResult } = require("express-validator");
 const passport = require("passport"); // requires passport into index.js
 require("../passport/passport"); //imports passport file into index.js
 
-const User = require("../models/login");
+const User = require("../models/registered_users");
 router.use(express.static("build"));
 
 const requestLogger = (request, response, next) => {

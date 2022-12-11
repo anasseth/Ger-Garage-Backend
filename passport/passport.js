@@ -1,6 +1,6 @@
 const passport = require("passport"),
   LocalStrategy = require("passport-local").Strategy,
-  User = require("../models/login");
+  User = require("../models/registered_users");
 passportJWT = require("passport-jwt");
 
 let Users = User,

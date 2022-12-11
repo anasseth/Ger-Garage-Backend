@@ -21,16 +21,20 @@ mongoose
     console.log("error connecting to MongoDB:", error.message);
   });
 
-var productRouter = require("./routes/products");
+var partRouter = require("./routes/parts");
+var vehicleRouter = require("./routes/vehicles");
+var mechanicRouter = require("./routes/mechanic");
 var passwordRouter = require("./routes/password");
-var orderRouter = require("./routes/order");
-var userRouter = require("./routes/login");
+var bookingRouter = require("./routes/bookings");
+var userRouter = require("./routes/registered_users");
 var loginRouter = require("./auth/auth");
 
-app.use("/api/products", productRouter);
+app.use("/api/part", partRouter);
 app.use("/api/password", passwordRouter);
-app.use("/api/order", orderRouter);
+app.use("/api/booking", bookingRouter);
 app.use("/api/user", userRouter);
+app.use("/api/mechanic", mechanicRouter);
+app.use("/api/vehicle", vehicleRouter);
 app.use("/api/login", loginRouter);
 
 const errorHandler = (error, request, response, next) => {
