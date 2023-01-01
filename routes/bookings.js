@@ -15,8 +15,8 @@ const requestLogger = (request, response, next) => {
 router.use(requestLogger);
 
 router.get("/", (request, response) => {
-  Booking.find({}).then((order) => {
-    response.json(order);
+  Booking.find({}).then((booking) => {
+    response.json(booking);
   });
 });
 
@@ -100,10 +100,10 @@ router.post("/", (request, response) => {
 });
 
 router.get("/:id", (request, response, next) => {
-  Order.findById(request.params.id)
-    .then((order) => {
-      if (order) {
-        response.json(order);
+  Booking.findById(request.params.id)
+    .then((booking) => {
+      if (booking) {
+        response.json(booking);
       } else {
         response.status(404).end();
       }
@@ -118,10 +118,10 @@ router.get("/:id", (request, response, next) => {
 router.put("/update-status/:id", (request, response, next) => {
   const body = request.body;
   const booking = {
-    status: body.bookingStatus,
+    bookingStatus: body.bookingStatus,
   };
 
-  Order.findByIdAndUpdate(request.params.id, booking, { new: true })
+  Booking.findByIdAndUpdate(request.params.id, booking, { new: true })
     .then((updateBooking) => {
       response.json(updateBooking);
     })
@@ -134,7 +134,7 @@ router.put("/assign-mechanic/:id", (request, response, next) => {
     mechanicAssigned: body.mechanicAssigned,
   };
 
-  Order.findByIdAndUpdate(request.params.id, booking, { new: true })
+  Booking.findByIdAndUpdate(request.params.id, booking, { new: true })
     .then((updateBooking) => {
       response.json(updateBooking);
     })
@@ -142,7 +142,7 @@ router.put("/assign-mechanic/:id", (request, response, next) => {
 });
 
 router.delete("/:id", (request, response, next) => {
-  Order.findByIdAndRemove(request.params.id)
+  Booking.findByIdAndRemove(request.params.id)
     .then((result) => {
       response.status(204).end();
     })
