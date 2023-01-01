@@ -18,7 +18,8 @@ const bookingSchema = new mongoose.Schema({
   vehicleDetail: {
     make: String,
     model: String,
-    engine: String,
+    engineType: String,
+    engineSize: String,
   },
   paymentDetail: {
     paypal: Boolean,

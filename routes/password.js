@@ -41,6 +41,7 @@ we return 400 error. else we return 200 (success) response
 */
 router.post("/", (request, response) => {
   const body = request.body;
+  console.log("Body Object : ", JSON.stringify(body, undefined, 3))
   if (body.name == undefined || body.password == undefined) {
     return response.status(400).json({ error: "Name or Password is Missing" });
   }
@@ -48,7 +49,7 @@ router.post("/", (request, response) => {
     console.log("Credentials : ", credentials);
     if (err) {
       response.status(400).end();
-      return handleError(err);
+      return console.log(err);
     } else {
       if (
         credentials.name == body.name &&
