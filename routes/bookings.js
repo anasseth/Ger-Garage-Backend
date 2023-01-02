@@ -92,32 +92,30 @@ router.post("/", (request, response) => {
     function (err, user) {
       if (err) {
         console.error(error);
-        res.status(500).send("Error: " + err);
+        res.status(404).send("User doesn't exist. Please check your username or email");
       } else {
         console.log();
-        console.log("Finding User : ", user);
+        console.log("User Exist !");
         console.log();
+        booking
+          .save()
+          .then((savedBooking) => {
+            response.json(savedBooking);
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+          .finally(() => {
+            // transporter.sendMail(message, function (err, info) {
+            //   if (err) {
+            //     console.log(err);
+            //   } else {
+            //     console.log(info);
+            //   }
+            // });
+          });
       }
     });
-
-
-  // booking
-  //   .save()
-  //   .then((savedBooking) => {
-  //     response.json(savedBooking);
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //   })
-  //   .finally(() => {
-  //     // transporter.sendMail(message, function (err, info) {
-  //     //   if (err) {
-  //     //     console.log(err);
-  //     //   } else {
-  //     //     console.log(info);
-  //     //   }
-  //     // });
-  //   });
 });
 
 router.get("/:id", (request, response, next) => {
