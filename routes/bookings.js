@@ -82,38 +82,37 @@ router.post("/", (request, response) => {
   // console.log(body);
   // console.log(booking);
 
-  // User.findOne({ username: body.registeredUserData.name, email: body.registeredUserData.email })
-  //   .then((user) => {
-  //     console.log("Finding User : ", user);
-  //   })
-  //   .catch((error) => next(error));
-
   User.findOne({ username: body.registeredUserData.name, email: body.registeredUserData.email },
     function (err, user) {
       if (err) {
         console.error(error);
-        res.status(404).send("User doesn't exist. Please check your username or email");
+        res.status(500).send("Server Error : ", err);
       } else {
         console.log();
         console.log("User Exist ! : ", user);
         console.log();
-        booking
-          .save()
-          .then((savedBooking) => {
-            response.json(savedBooking);
-          })
-          .catch((err) => {
-            console.error(err);
-          })
-          .finally(() => {
-            // transporter.sendMail(message, function (err, info) {
-            //   if (err) {
-            //     console.log(err);
-            //   } else {
-            //     console.log(info);
-            //   }
-            // });
-          });
+        if (!user) {
+          res.status(404).send("User doesn't exist. Please check your username or email");
+        }
+        else {
+          booking
+            .save()
+            .then((savedBooking) => {
+              response.json(savedBooking);
+            })
+            .catch((err) => {
+              console.error(err);
+            })
+            .finally(() => {
+              // transporter.sendMail(message, function (err, info) {
+              //   if (err) {
+              //     console.log(err);
+              //   } else {
+              //     console.log(info);
+              //   }
+              // });
+            });
+        }
       }
     });
 });
