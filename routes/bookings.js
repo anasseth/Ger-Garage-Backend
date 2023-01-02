@@ -92,7 +92,7 @@ router.post("/", (request, response) => {
         console.log("User Exist ! : ", user);
         console.log();
         if (!user) {
-          response.status(404).send("User doesn't exist. Please check your username or email");
+          response.status(404).json({ message: "User doesn't exist. Please check your username or email" });
         }
         else {
           booking
