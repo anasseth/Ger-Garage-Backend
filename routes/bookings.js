@@ -25,7 +25,7 @@ router.post("/", (request, response) => {
   const body = request.body;
   // console.log(request.body);
   if (!body) {
-    return response.status(400).json({ error: "Booking Content Missing !" });
+    return response.status(400).json({ message: "Booking Content Missing !" });
   }
   const booking = new Booking({
     licenseNumber: body.licenseNumber,
@@ -92,7 +92,7 @@ router.post("/", (request, response) => {
         console.log("User Exist ! : ", user);
         console.log();
         if (!user) {
-          response.status(404).json({ error: "User doesn't exist. Please check your username or email" });
+          response.status(404).json({ message: "User doesn't exist. Please check your username or email" });
         }
         else {
           booking
