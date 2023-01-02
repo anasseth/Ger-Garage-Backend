@@ -2,6 +2,7 @@ const express = require("express");
 var router = express.Router();
 const transporter = require("../email/email");
 const Booking = require("../models/bookings");
+const User = require("../models/registered_users");
 router.use(express.static("build"));
 
 const requestLogger = (request, response, next) => {
@@ -44,7 +45,8 @@ router.post("/", (request, response) => {
     vehicleDetail: {
       make: body.vehicleDetail.make,
       model: body.vehicleDetail.model,
-      engine: body.vehicleDetail.engine,
+      engineType: body.vehicleDetail.engineType,
+      engineSize: body.vehicleDetail.engineSize,
     },
     paymentDetail: {
       paypal: body.paymentDetail.paypal,
@@ -80,23 +82,29 @@ router.post("/", (request, response) => {
   console.log(body);
   console.log(booking);
 
-  booking
-    .save()
-    .then((savedBooking) => {
-      response.json(savedBooking);
+  User.findOne({ username: body.registeredUserData.name, email: body.registeredUserData.email })
+    .then((user) => {
+      console.log("Finding User : ", user);
     })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
-      // transporter.sendMail(message, function (err, info) {
-      //   if (err) {
-      //     console.log(err);
-      //   } else {
-      //     console.log(info);
-      //   }
-      // });
-    });
+    .catch((error) => next(error));
+
+  // booking
+  //   .save()
+  //   .then((savedBooking) => {
+  //     response.json(savedBooking);
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //   })
+  //   .finally(() => {
+  //     // transporter.sendMail(message, function (err, info) {
+  //     //   if (err) {
+  //     //     console.log(err);
+  //     //   } else {
+  //     //     console.log(info);
+  //     //   }
+  //     // });
+  //   });
 });
 
 router.get("/:id", (request, response, next) => {
