@@ -86,13 +86,13 @@ router.post("/", (request, response) => {
     function (err, user) {
       if (err) {
         console.error(error);
-        res.status(500).send("Server Error : ", err);
+        response.status(500).send("Server Error : ", err);
       } else {
         console.log();
         console.log("User Exist ! : ", user);
         console.log();
         if (!user) {
-          res.status(404).send("User doesn't exist. Please check your username or email");
+          response.status(404).send("User doesn't exist. Please check your username or email");
         }
         else {
           booking
