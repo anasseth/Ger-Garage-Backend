@@ -23,7 +23,7 @@ router.get("/", (request, response) => {
 
 router.post("/", (request, response) => {
   const body = request.body;
-  console.log(request.body);
+  // console.log(request.body);
   if (!body) {
     return response.status(400).json({ error: "Booking Content Missing !" });
   }
@@ -79,14 +79,27 @@ router.post("/", (request, response) => {
   //   Ger-Garage`,
   // };
 
-  console.log(body);
-  console.log(booking);
+  // console.log(body);
+  // console.log(booking);
 
-  User.findOne({ username: body.registeredUserData.name, email: body.registeredUserData.email })
-    .then((user) => {
-      console.log("Finding User : ", user);
-    })
-    .catch((error) => next(error));
+  // User.findOne({ username: body.registeredUserData.name, email: body.registeredUserData.email })
+  //   .then((user) => {
+  //     console.log("Finding User : ", user);
+  //   })
+  //   .catch((error) => next(error));
+
+  User.findOne({ username: body.registeredUserData.name, email: body.registeredUserData.email },
+    function (err, user) {
+      if (err) {
+        console.error(error);
+        res.status(500).send("Error: " + err);
+      } else {
+        console.log();
+        console.log("Finding User : ", user);
+        console.log();
+      }
+    });
+
 
   // booking
   //   .save()
