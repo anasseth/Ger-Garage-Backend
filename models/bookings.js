@@ -31,6 +31,13 @@ const bookingSchema = new mongoose.Schema({
     name: String,
     email: String,
   },
+  additionalParts: [
+    {
+      name: String,
+      price: String,
+      manufacturer: String
+    }
+  ]
 });
 
 bookingSchema.set("toJSON", {

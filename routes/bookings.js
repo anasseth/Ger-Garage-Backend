@@ -21,6 +21,19 @@ router.get("/", (request, response) => {
   });
 });
 
+router.post("/checkslots", (request, response) => {
+  const body = request.body;
+  Booking.find({}).then((booking) => {
+    if (booking.length > 0) {
+      var checkIfSlotsAvailable = booking.filter((x) => {
+        return new Date(x.bookingDate).toDateString() == new Date(body.appointmentDate).toDateString()
+      })
+      response.status(200).json({ message: `${8 - checkIfSlotsAvailable.length} Slots Available For The Selected Date.`, slotsAvailable: 8 - checkIfSlotsAvailable.length });
+    }
+  });
+});
+
+
 router.post("/", (request, response) => {
   const body = request.body;
   // console.log(request.body);
@@ -58,29 +71,8 @@ router.post("/", (request, response) => {
       name: body.registeredUserData.name,
       email: body.registeredUserData.email,
     },
+    additionalParts: []
   });
-
-  // var message = {
-  //   from: "",
-  //   to: booking.email,
-  //   subject: "Booking Confirmation | Ger-Garage",
-  //   text: `
-  //   Hello ${booking.userDetail.firstName},
-
-  //   Your Booking for ${booking.company_name} ${booking.model} has been confirmed. 
-
-  //   Booking Details
-
-  //   Vehicle :${body.vehicleDetail.make} ${body.vehicleDetail.type}
-  //   Service Type : ${body.category}
-  //   Initial Cost : ${body.initialCost}
-
-  //   Best Regards,
-  //   Ger-Garage`,
-  // };
-
-  // console.log(body);
-  // console.log(booking);
 
   User.findOne({ username: body.registeredUserData.name, email: body.registeredUserData.email },
     function (err, user) {
@@ -104,13 +96,6 @@ router.post("/", (request, response) => {
               console.error(err);
             })
             .finally(() => {
-              // transporter.sendMail(message, function (err, info) {
-              //   if (err) {
-              //     console.log(err);
-              //   } else {
-              //     console.log(info);
-              //   }
-              // });
             });
         }
       }
@@ -137,6 +122,19 @@ router.put("/update-status/:id", (request, response, next) => {
   const body = request.body;
   const booking = {
     bookingStatus: body.bookingStatus,
+  };
+
+  Booking.findByIdAndUpdate(request.params.id, booking, { new: true })
+    .then((updateBooking) => {
+      response.json(updateBooking);
+    })
+    .catch((error) => next(error));
+});
+
+router.put("/additional-parts/:id", (request, response, next) => {
+  const body = request.body;
+  const booking = {
+    additionalParts: body.additionalParts,
   };
 
   Booking.findByIdAndUpdate(request.params.id, booking, { new: true })
